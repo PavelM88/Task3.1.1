@@ -18,9 +18,6 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(2L, "ROLE_USER"));
-        user.setRoles(roles);
         return userDao.save(user);
     }
 
