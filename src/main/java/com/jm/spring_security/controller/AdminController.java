@@ -2,12 +2,14 @@ package com.jm.spring_security.controller;
 
 import com.jm.spring_security.model.Role;
 import com.jm.spring_security.model.User;
+import com.jm.spring_security.service.UserDetailsServiceImpl;
 import com.jm.spring_security.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,9 +19,11 @@ import java.util.Set;
 public class AdminController {
 
     private final UserService userService;
+    private final UserDetailsServiceImpl detailsService;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, UserDetailsServiceImpl detailsService) {
         this.userService = userService;
+        this.detailsService = detailsService;
     }
 
     @GetMapping("/")
@@ -27,8 +31,14 @@ public class AdminController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String getLogin() {
+        return "login";
+    }
+
     @GetMapping("/admin")
-    public String allUsers(Model model) {
+    public String allUsers(Model model, Principal principal) {
+        model.addAttribute("user", detailsService.loadUserByUsername(principal.getName()));
         List<User> users = userService.allUsers();
         model.addAttribute("users", users);
         return "users";
@@ -69,15 +79,17 @@ public class AdminController {
 
     @PostMapping("/admin/{id}")
     public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false, name = "ROLE_ADMIN") String roleAdmin,
-                             @RequestParam(required = false, name = "ROLE_USER") String roleUser) {
+                             @RequestParam("role") String role) {
         Set<Role> roles = new HashSet<>();
-        if (roleAdmin != null) {
-            roles.add(new Role(1L, roleAdmin));
+        Role newRole = new Role();
+        if (role.equals("ADMIN")) {
+            newRole.setId(1L);
+            newRole.setName("ROLE_ADMIN");
+        } else {
+            newRole.setId(2L);
+            newRole.setName("ROLE_USER");
         }
-        if (roleUser != null) {
-            roles.add(new Role(2L, roleUser));
-        }
+        roles.add(newRole);
         user.setUserName(user.getUsername());
         user.setRoles(roles);
         userService.saveUser(user);
