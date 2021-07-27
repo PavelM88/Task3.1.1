@@ -3,25 +3,74 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Show User</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
-<div>
-    <label>User name:
-        <td th:text="${user.getUserName()}"></td>
-    </label>
-    <br/>
-    <label>Name:
-        <td th:text="${user.getName()}"></td>
-    </label>
-    <br/>
-    <label>Last name:
-        <td th:text="${user.getLastName()}"></td>
-    </label>
-    <br/>
-    <label>Age:
-        <td th:text="${user.getAge()}"></td>
-    </label>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+            <span class="navbar-brand col-sm-3 col-md-2 mr-0"
+                  th:text="${user.getUsername() + ' with roles: '+ user.getAuthorities()}"></span>
+        <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row sidebar">
+        <div class="d-flex align-items-start">
+            <div class="col col-2 mt-3 p-0">
+                <div class="nav flex-column nav-pills d-grid gap-1" id="v-pills-tab" role="tablist"
+                     aria-orientation="vertical">
+                    <a href="/user" class="nav-link active" role="button" aria-selected="false">User</a>
+                </div>
+            </div>
+            <main role="main" class="col-md-5 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+                    <h1 class="h2">User information-page</h1>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="col p-3 pb-2 border border-bottom-0 rounded-top bg-light">
+                            <h5 class="h3">About user</h5>
+                        </div>
+                        <div class="table-responsive bg-white border">
+                            <table class="table table-striped table-hover table-borderless">
+                                <thead>
+                                <tr>
+                                    <td><strong>ID</strong></td>
+                                    <td><strong>First Name</strong></td>
+                                    <td><strong>Last name</strong></td>
+                                    <td><strong>Age</strong></td>
+                                    <td><strong>Username</strong></td>
+                                    <td><strong>Role</strong></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:text="${user.getId()}"></td>
+                                    <td th:text="${user.getName()}"></td>
+                                    <td th:text="${user.getLastName()}"></td>
+                                    <td th:text="${user.getAge()}"></td>
+                                    <td th:text="${user.getUserName()}"></td>
+                                    <td th:text="${user.getRoles()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
 </body>
 </html>

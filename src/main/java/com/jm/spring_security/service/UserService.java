@@ -1,13 +1,10 @@
 package com.jm.spring_security.service;
 
 import com.jm.spring_security.dao.UserDao;
-import com.jm.spring_security.model.Role;
 import com.jm.spring_security.model.User;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserService {

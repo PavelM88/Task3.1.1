@@ -6,7 +6,6 @@ import com.jm.spring_security.service.UserDetailsServiceImpl;
 import com.jm.spring_security.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -52,14 +51,18 @@ public class AdminController {
 
     @PostMapping("/admin/add")
     public String create(@ModelAttribute("user") User user,
-                         BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "/add";
+                         @RequestParam("listRole") String listRole) {
+        Set<Role> roles = new HashSet<>();
+        Role roleUser = new Role();
+        if (listRole.equals("ADMIN")) {
+            roleUser.setId(1L);
+            roleUser.setName("ROLE_ADMIN");
+        } else {
+            roleUser.setId(2L);
+            roleUser.setName("ROLE_USER");
         }
-        if (!user.getPassword().equals(user.getPasswordConfirm())) {
-            model.addAttribute("passwordError", "Пароли не совпадают!");
-            return "/add";
-        }
+        roles.add(roleUser);
+        user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -90,13 +93,12 @@ public class AdminController {
             newRole.setName("ROLE_USER");
         }
         roles.add(newRole);
-        user.setUserName(user.getUsername());
         user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}/delete")
+    @DeleteMapping("/admin/{id}/delete")
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(userService.getUserById(id));
         return "redirect:/admin";
