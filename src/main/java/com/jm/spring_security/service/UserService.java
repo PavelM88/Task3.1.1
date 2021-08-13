@@ -27,6 +27,6 @@ public class UserService {
     }
 
     public User getUserById(Integer id) {
-        return userDao.getById(id);
+        return userDao.findById(id).get();
     }
 }

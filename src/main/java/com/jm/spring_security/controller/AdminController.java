@@ -36,11 +36,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String allUsers(Model model, Principal principal) {
-        model.addAttribute("user", detailsService.loadUserByUsername(principal.getName()));
-        List<User> users = userService.allUsers();
-        model.addAttribute("users", users);
-        return "users";
+    public String admin() {
+        return "rest";
     }
 
     @GetMapping("/admin/add")
@@ -66,41 +63,41 @@ public class AdminController {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-
-    @GetMapping("/{id}")
-    public String showUserId(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "show";
-    }
-
-    @GetMapping("/admin/{id}/edit")
-    public String editUser(@PathVariable("id") Integer id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-        return "edit";
-    }
-
-    @PostMapping("/admin/{id}")
-    public String updateUser(@ModelAttribute("user") User user,
-                             @RequestParam("role") String role) {
-        Set<Role> roles = new HashSet<>();
-        Role newRole = new Role();
-        if (role.equals("ADMIN")) {
-            newRole.setId(1L);
-            newRole.setName("ROLE_ADMIN");
-        } else {
-            newRole.setId(2L);
-            newRole.setName("ROLE_USER");
-        }
-        roles.add(newRole);
-        user.setRoles(roles);
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-
-    @DeleteMapping("/admin/{id}/delete")
-    public String deleteUser(@PathVariable("id") Integer id) {
-        userService.deleteUser(userService.getUserById(id));
-        return "redirect:/admin";
-    }
+//
+//    @GetMapping("/{id}")
+//    public String showUserId(@PathVariable("id") Integer id, Model model) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        return "show";
+//    }
+//
+//    @GetMapping("/admin/{id}/edit")
+//    public String editUser(@PathVariable("id") Integer id, Model model) {
+//        User user = userService.getUserById(id);
+//        model.addAttribute("user", user);
+//        return "edit";
+//    }
+//
+//    @PostMapping("/admin/{id}")
+//    public String updateUser(@ModelAttribute("user") User user,
+//                             @RequestParam("role") String role) {
+//        Set<Role> roles = new HashSet<>();
+//        Role newRole = new Role();
+//        if (role.equals("ADMIN")) {
+//            newRole.setId(1L);
+//            newRole.setName("ROLE_ADMIN");
+//        } else {
+//            newRole.setId(2L);
+//            newRole.setName("ROLE_USER");
+//        }
+//        roles.add(newRole);
+//        user.setRoles(roles);
+//        userService.saveUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @DeleteMapping("/admin/{id}/delete")
+//    public String deleteUser(@PathVariable("id") Integer id) {
+//        userService.deleteUser(userService.getUserById(id));
+//        return "redirect:/admin";
+//    }
 }
