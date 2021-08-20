@@ -23,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Unknown user: " + userName);
         }
-        return user;
+        return user.getUserDetails();
     }
 }

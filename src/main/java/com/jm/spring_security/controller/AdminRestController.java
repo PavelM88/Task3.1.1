@@ -6,6 +6,7 @@ import com.jm.spring_security.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,10 +18,12 @@ import java.util.List;
 public class AdminRestController {
     private final UserService userService;
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminRestController(UserService userService, UserDao userDao) {
+    public AdminRestController(UserService userService, UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +58,7 @@ public class AdminRestController {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.userService.saveUser(user);
+        this.userService.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
