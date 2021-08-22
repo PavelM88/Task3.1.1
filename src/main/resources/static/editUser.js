@@ -26,9 +26,18 @@ function editUser() {
                 <td> ${window.formEditUser.editLastName.value} </td>
                 <td> ${window.formEditUser.editAge.value} </td>
                 <td> ${window.formEditUser.editUsername.value} </td>
-                <td> ${window.formEditUser.editRoles.value} </td>
+                <td> ${roleName(editRole)} </td>
                 <td> <button type="button" onclick="modalEdit(${id})" class="btn btn-primary">Edit</button> </td>
                 <td> <button type="button" onclick="modalDelete(${id})" class="btn btn-danger">Delete</button> </td>
                 </tr>`);
+            console.log(roleName(editRole));
         });
+}
+function roleName(editRole) {
+    let roleName = "";
+    for (let i = 0; i < editRole.length; i++) {
+       let role = editRole[i].name + " ";
+       roleName += role;
+    }
+    return roleName;
 }

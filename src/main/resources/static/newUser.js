@@ -21,7 +21,7 @@ function newUser() {
                 <td>  ${window.formNewUser.newLastName.value} </td>
                 <td>  ${window.formNewUser.newAge.value} </td>
                 <td>  ${window.formNewUser.newUsername.value} </td>
-                <td>  ${window.formNewUser.newRoles.value} </td>
+                <td>  ${roleName(role)} </td>
                 <td> <button type="button" onclick="modalEdit(${user.id})" class="btn btn-primary">Edit</button> </td>
                 <td> <button type="button" onclick="modalDelete(${user.id})" class="btn btn-danger">Delete</button> </td>
                 </tr>`);

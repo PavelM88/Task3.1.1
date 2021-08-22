@@ -12,10 +12,11 @@ function listRoles(user) {
 function selectRole(role) {
     let roles = [];
     if (role.indexOf("USER") >= 0) {
-        roles.push({id: 2});
+        roles.push({id: 2,
+                    name:'USER'});
     }
     if (role.indexOf("ADMIN") >= 0) {
-        roles.push({id: 1});
+        roles.push({id: 1, name: 'ADMIN'});
     }
     return roles;
 }

@@ -71,7 +71,7 @@ function modalEdit(id) {
                                     <p>
                                         <label>Role</label>
                                         <select id="editRoles" name="editRoles" multiple size="2" required
-                                               class="form-control form-control">
+                                               class="form-select">
                                             <option value="ADMIN">ADMIN</option>
                                             <option value="USER">USER</option>
                                         </select>

@@ -2,16 +2,12 @@ package com.jm.spring_security.controller;
 
 import com.jm.spring_security.model.Role;
 import com.jm.spring_security.model.User;
-import com.jm.spring_security.service.UserDetailsServiceImpl;
 import com.jm.spring_security.service.UserService;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
