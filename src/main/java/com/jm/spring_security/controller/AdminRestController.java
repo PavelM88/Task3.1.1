@@ -44,7 +44,7 @@ public class AdminRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return ResponseEntity.ok(user);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)

@@ -35,13 +35,13 @@ public class AdminController {
         return "rest";
     }
 
-    @GetMapping("/admin/add")
+    @GetMapping("/add")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "add";
     }
 
-    @PostMapping("/admin/add")
+    @PostMapping("/add")
     public String create(@ModelAttribute("user") User user,
                          @RequestParam("listRole") String listRole) {
         Set<Role> roles = new HashSet<>();
